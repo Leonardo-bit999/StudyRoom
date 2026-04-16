@@ -1,0 +1,199 @@
+.tarefas-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.tarefas-header {
+    margin: 0 0 20px 0;
+}
+
+.tarefas-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.tarefas-header h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.tarefas-counter {
+    margin: 6px 0 0 0;
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.tarefas-counter strong {
+    color: var(--text-color);
+}
+
+.tarefas-tabs {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.tarefas-tab {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 999px;
+    background: var(--btn-bg);
+    color: var(--text-color);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tarefas-tab.active {
+    background: var(--accent);
+    color: #000;
+}
+
+.tarefas-input-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.tarefas-input {
+    flex: 1;
+    padding: 12px 16px;
+    border: none;
+    border-radius: 10px;
+    background: var(--input-bg);
+    color: var(--text-color);
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.tarefas-input::placeholder {
+    color: var(--input-placeholder);
+}
+
+.tarefas-input:focus {
+    outline: none;
+    background: var(--input-focus-bg);
+    border: 1px solid var(--input-focus-border);
+}
+
+.btn-add-tarefa {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: none;
+    border-radius: 10px;
+    background: var(--accent);
+    color: #000;
+    font-size: 24px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-add-tarefa:hover {
+    background: var(--accent-strong);
+    transform: scale(1.05);
+}
+
+.tarefas-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 25px 0;
+}
+
+.tarefas-list li {
+    padding: 12px 16px;
+    background: var(--list-item-bg);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+}
+
+.tarefas-list li:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.tarefas-list li.completed .task-text {
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+
+.task-text {
+    flex: 1;
+    min-width: 0;
+}
+
+.task-text input,
+.task-edit-input {
+    width: 100%;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 6px 10px;
+    border-radius: 8px;
+    color: var(--text-color);
+}
+
+.task-edit-input:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.task-actions {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.task-btn {
+    width: 34px;
+    height: 34px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.task-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.task-btn.restore {
+    background: rgba(16, 185, 129, 0.18);
+    color: #fff;
+}
+
+.task-btn.delete {
+    background: rgba(239, 68, 68, 0.18);
+    color: #fff;
+}
+
+.task-btn.edit {
+    background: rgba(59, 130, 246, 0.18);
+    color: #fff;
+}
+
+.tarefas-empty {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--empty-text);
+    font-size: 14px;
+}

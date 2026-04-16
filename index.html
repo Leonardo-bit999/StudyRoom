@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon_study.svg">
+    <link rel="stylesheet" href="style.css">
+
+    <title>Sala de Estudos</title>
+</head>
+
+<body>
+    <header class="main-header">
+        <div class="header-content">
+            <div class="header-top">
+                <div class="header-title">
+                    <h1 class="main-title">📖 Sala de Estudo</h1>
+                </div>
+                <div class="theme-buttons">
+                    <button id="theme-toggle" class="theme-toggle-btn theme-dark" type="button">
+                        <span class="theme-icon">🌙</span>
+                        <span class="theme-text">Noturno</span>
+                    </button>
+                </div>
+            </div>
+            <div id="relogio" class="clock-display">
+                <h1 id="hora">00:00:00</h1>
+                <p id="data">Carregando data...</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="quote-block">
+        <p class="quote-text">"Consistência supera talento quando talento não é consistente."</p>
+        <span class="quote-author">- Autor</span>
+    </div>
+
+    <main class="dashboard-container">
+        <section id="pomodoro" class="card pomodoro-card">
+            <div class="pomodoro-type-buttons">
+                <button class="type-btn active" data-type="focus">🍅 Foco</button>
+                <button class="type-btn" data-type="short-break">🌙 Descanso curto</button>
+                <button class="type-btn" data-type="long-break">🌳 Descanso longo</button>
+            </div>
+            
+            <div class="pomodoro-timer-container">
+                <div class="timer-circle">
+                    <div class="timer-ring"></div>
+                    <div class="timer-content">
+                        <div id="timer-display" class="timer-display">25:00</div>
+                        <p class="timer-label">🍅 Foco</p>
+                        <div class="pomodoro-progress">
+                            <span class="progress-dot active"></span>
+                            <span class="progress-dot"></span>
+                            <span class="progress-dot"></span>
+                            <span class="progress-dot"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pomodoro-controls">
+                <button class="control-btn minus-btn">−</button>
+                <span class="control-time">25 min</span>
+                <button class="control-btn plus-btn">+</button>
+            </div>
+            
+            <div class="pomodoro-actions">
+                <button id="btn-start" class="btn-primary">Iniciar</button>
+                <button id="btn-reset" class="btn-secondary">Resetar</button>
+            </div>
+            
+            <p class="pomodoro-message">até descanso longo</p>
+            
+            <div class="pomodoro-completed">
+                <span>🍅 Concluídos hoje: <strong>0</strong></span>
+                <a href="#" class="reset-link">Resetar</a>
+            </div>
+        </section>
+    
+        <section id="tarefas" class="card tarefas-card">
+            <div class="tarefas-header">
+                <div class="tarefas-title-row">
+                    <div>
+                        <h3>✓ TAREFAS</h3>
+                        <p class="tarefas-counter">Concluídas: <strong id="tarefas-concluidas">0</strong></p>
+                    </div>
+                    <div class="tarefas-tabs">
+                        <button class="tarefas-tab active" data-view="active">Ativas</button>
+                        <button class="tarefas-tab" data-view="completed">Histórico</button>
+                        <button class="tarefas-tab" data-view="trash">Lixeira</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tarefas-input-container">
+                <input type="text" id="nova-tarefa" class="tarefas-input" placeholder="Nova tarefa...">
+                <button class="btn-add-tarefa">+</button>
+            </div>
+            
+            <ul id="lista-tarefas" class="tarefas-list"></ul>
+            
+            <div class="tarefas-empty">
+                <p id="tarefas-empty-text">Nenhuma tarefa ainda 📋</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/theme-config.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/pomodoro.js"></script>
+    <script src="js/clock.js"></script>
+    <script src="js/slogan.js"></script>
+    <script src="js/tarefas.js"></script>
+</body>
+</html>

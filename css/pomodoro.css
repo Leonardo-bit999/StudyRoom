@@ -1,0 +1,232 @@
+.pomodoro-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pomodoro-type-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 30px;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.type-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 20px;
+    background: var(--btn-bg);
+    color: var(--text-muted);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.type-btn:hover {
+    background: var(--btn-bg-hover);
+}
+
+.type-btn.active {
+    background: var(--accent);
+    color: #000;
+}
+
+.pomodoro-timer-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.timer-circle {
+    width: 250px;
+    height: 250px;
+    border: 3px solid var(--border-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: radial-gradient(circle, rgba(255, 165, 0, 0.1), rgba(255, 165, 0, 0.02));
+    overflow: hidden;
+}
+
+.timer-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    --progress-deg: 0deg;
+    background: conic-gradient(var(--accent) 0deg var(--progress-deg), rgba(255, 255, 255, 0.08) var(--progress-deg) 360deg);
+    transition: background 0.2s ease;
+}
+
+.timer-ring::before {
+    content: '';
+    position: absolute;
+    inset: 12px;
+    border-radius: 50%;
+    background: var(--card-bg);
+    backdrop-filter: blur(8px);
+}
+
+.timer-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+}
+
+.timer-display {
+    font-size: 64px;
+    font-weight: 300;
+    margin: 0;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 2px;
+}
+
+.timer-label {
+    margin: 10px 0 0 0;
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+.pomodoro-progress {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 16px;
+}
+
+.progress-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.progress-dot.active {
+    background: var(--accent);
+    box-shadow: 0 0 0 4px rgba(255, 165, 0, 0.16);
+    animation: pulse-dot 1.2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 4px rgba(255, 165, 0, 0.16);
+    }
+    50% {
+        transform: scale(1.2);
+        box-shadow: 0 0 0 8px rgba(255, 165, 0, 0.1);
+    }
+}
+
+.pomodoro-controls {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.control-btn {
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: var(--btn-bg);
+    color: var(--text-color);
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.control-btn:hover {
+    background: var(--btn-bg-hover);
+    transform: scale(1.1);
+}
+
+.control-time {
+    font-size: 16px;
+    min-width: 70px;
+    text-align: center;
+}
+
+.pomodoro-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.btn-primary {
+    flex: 1;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 25px;
+    background: var(--accent);
+    color: #000;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: var(--accent-strong);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    flex: 1;
+    padding: 12px 30px;
+    border: 1px solid var(--btn-secondary-border);
+    border-radius: 25px;
+    background: var(--btn-secondary-bg);
+    color: var(--text-color);
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background: var(--btn-secondary-hover);
+    border-color: var(--btn-secondary-border);
+}
+
+.pomodoro-message {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 15px 0;
+    text-align: center;
+}
+
+.pomodoro-completed {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+.reset-link {
+    color: var(--text-muted);
+    text-decoration: underline;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.reset-link:hover {
+    color: var(--text-color);
+}
