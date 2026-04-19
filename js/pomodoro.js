@@ -4,6 +4,13 @@ const defaultDurations = {
     'long-break': 15
 };
 
+// Armazena as durações customizadas do usuário
+const customDurations = {
+    focus: 25,
+    'short-break': 5,
+    'long-break': 15
+};
+
 const typeLabels = {
     focus: '🍅 Foco',
     'short-break': '🌙 Descanso curto',
@@ -22,6 +29,7 @@ let currentSeconds = 0;
 let timerId = null;
 let completedCount = 0;
 let focusCycleCount = 0;
+let completedCycles = 0;
 let sessionTotalSeconds = defaultDurations[currentType] * 60;
 
 const typeButtons = document.querySelectorAll('.pomodoro-type-buttons .type-btn');
@@ -34,6 +42,7 @@ const btnStart = document.getElementById('btn-start');
 const btnReset = document.getElementById('btn-reset');
 const pomodoroMessage = document.querySelector('.pomodoro-message');
 const completedCountEl = document.querySelector('.pomodoro-completed strong');
+const completedCyclesEl = document.querySelector('.pomodoro-completed .cycles-count');
 const completedResetLink = document.querySelector('.pomodoro-completed .reset-link');
 const timerRing = document.querySelector('.timer-ring');
 const progressDots = document.querySelectorAll('.progress-dot');
@@ -46,15 +55,23 @@ function formatTime(minutes, seconds) {
 
 function updateProgressDots() {
     if (!progressDots.length) return;
-    const activeCount = Math.min(completedCount, progressDots.length);
+    const activeCount = Math.min(focusCycleCount, progressDots.length);
     progressDots.forEach((dot, index) => {
         dot.classList.toggle('active', index < activeCount);
     });
 }
 
+function updateCompletedCounters() {
+    if (completedCountEl) {
+        completedCountEl.textContent = completedCount;
+    }
+    if (completedCyclesEl) {
+        completedCyclesEl.textContent = completedCycles;
+    }
+}
+
 function updateDisplay() {
     timerDisplay.textContent = formatTime(currentMinutes, currentSeconds);
-    controlTime.textContent = `${currentMinutes} min`;
     timerLabel.textContent = typeLabels[currentType];
     updateProgressDots();
     updateTimerRing();
@@ -62,6 +79,11 @@ function updateDisplay() {
     if (!timerId && pomodoroMessage.textContent !== 'Sessão concluída!' && pomodoroMessage.textContent !== 'Pausado') {
         pomodoroMessage.textContent = typeMessages[currentType];
     }
+}
+
+function updateControlTime() {
+    const totalMinutes = Math.ceil((currentMinutes * 60 + currentSeconds) / 60);
+    controlTime.textContent = `${totalMinutes} min`;
 }
 
 function playBeep(type) {
@@ -115,12 +137,13 @@ function stopTimer() {
 function switchSession(type, autoStart = false) {
     currentType = type;
     stopTimer();
-    currentMinutes = defaultDurations[type];
+    currentMinutes = customDurations[type];
     currentSeconds = 0;
-    sessionTotalSeconds = defaultDurations[type] * 60;
+    sessionTotalSeconds = customDurations[type] * 60;
     setActiveTypeButton(type);
     pomodoroMessage.textContent = typeMessages[type];
     updateDisplay();
+    updateControlTime();
     if (autoStart) {
         startTimer();
     }
@@ -154,7 +177,7 @@ function completeSession() {
     if (currentType === 'focus') {
         completedCount += 1;
         focusCycleCount += 1;
-        completedCountEl.textContent = completedCount;
+        updateCompletedCounters();
         pomodoroMessage.textContent = 'Pomodoro concluído!';
         playBeep('focus');
         if (window.historyManager) {
@@ -162,7 +185,9 @@ function completeSession() {
         }
 
         if (focusCycleCount >= 4) {
+            completedCycles += 1;
             focusCycleCount = 0;
+            updateCompletedCounters();
             pomodoroMessage.textContent = 'Iniciando descanso longo...';
             switchSession('long-break', true);
             return;
@@ -187,7 +212,7 @@ function startTimer() {
     }
 
     if (currentMinutes === 0 && currentSeconds === 0) {
-        currentMinutes = defaultDurations[currentType];
+        currentMinutes = customDurations[currentType];
         sessionTotalSeconds = currentMinutes * 60;
     }
 
@@ -199,16 +224,18 @@ function startTimer() {
 
 function resetTimer() {
     stopTimer();
-    currentMinutes = defaultDurations[currentType];
+    currentMinutes = customDurations[currentType];
     currentSeconds = 0;
-    sessionTotalSeconds = defaultDurations[currentType] * 60;
+    sessionTotalSeconds = customDurations[currentType] * 60;
     pomodoroMessage.textContent = typeMessages[currentType];
     updateDisplay();
+    updateControlTime();
 }
 
 function resetCompletedCount() {
     completedCount = 0;
-    completedCountEl.textContent = completedCount;
+    completedCycles = 0;
+    updateCompletedCounters();
 }
 
 function adjustMinutes(delta) {
@@ -220,7 +247,10 @@ function adjustMinutes(delta) {
     currentMinutes = Math.floor(totalSeconds / 60);
     currentSeconds = totalSeconds % 60;
     sessionTotalSeconds = totalSeconds;
+    // Salva o valor customizado para este tipo de sessão
+    customDurations[currentType] = currentMinutes;
     updateDisplay();
+    updateControlTime();
 }
 
 function initPomodoro() {
@@ -237,8 +267,12 @@ function initPomodoro() {
         });
     }
 
+    currentMinutes = customDurations[currentType];
+    sessionTotalSeconds = customDurations[currentType] * 60;
     setActiveTypeButton(currentType);
     updateDisplay();
+    updateControlTime();
+    updateCompletedCounters();
 }
 
 if (document.readyState === 'loading') {
